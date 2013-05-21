@@ -24,7 +24,7 @@ print "SUCCESS"
 print "Copying site definition file...",
 import shutil
 
-file = os.path.dirname(__file__).join(file_dir, 'plugnhost')
+file = os.path.join(os.path.dirname(__file__), 'plugnhost')
 shutil.copy2(file, pre_enabled_dir)
 print "SUUCESS"
 
