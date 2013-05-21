@@ -39,8 +39,9 @@ for line in fileinput.input(nginx_dir+"nginx.conf", inplace=1):
         found = True # Next line will have a preprinted string
     else:
         if found:
-            print '\t#Next line allows a upstream site to be added on top of http scope'
+            print "\t#Next line allows a upstream site to be added on top of http scope"
             print "\tinclude /etc/nginx/sites-pre-enabled/*;"
+            print "\n"
         found = False
     print line,
 print "SUCCESS"
