@@ -13,21 +13,19 @@ npm install express
 print "Creating special pre enabled directory...",
 import os
 
-directory = "/etc/nginx/sites-pre-enabled"
+nginx_dir = "/etc/nginx/"
+pre_enabled_dir = nginx_dir+"sites-pre-enabled"
 #directory = "C:\\temp\\lol"
-if not os.path.exists(directory):
-    os.makedirs(directory)
+if not os.path.exists(pre_enabled_dir):
+    os.makedirs(pre_enabled_dir)
 print "SUCCESS"
     
 # Step 2: Copy plugnhost site definition file to pre enabled sites directory
 print "Copying site definition file...",
 import shutil
 
-file_dir = os.path.dirname(__file__)
-print file_dir
-filename = os.path.join(dir, '/plugnhost')
-print filename
-shutil.copy2(filename, directory)
+file = os.path.dirname(__file__).join(file_dir, 'plugnhost')
+shutil.copy2(file, pre_enabled_dir)
 print "SUUCESS"
 
 # Step 3: Edit the nginx.conf file to include pre-enabled sites at the top of
@@ -36,7 +34,7 @@ print "Editing nginx.conf file...",
 import fileinput
 
 found = False
-for line in fileinput.input('test', inplace=1):
+for line in fileinput.input(nginx_dir+"nginx.conf", inplace=1):
     if line.startswith('http {'):
         found = True # Next line will have a preprinted string
     else:
