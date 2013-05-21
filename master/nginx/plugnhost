@@ -1,0 +1,14 @@
+upstream plugnhost {
+	# Worker nodes
+	##WORKERNODETAG_DONT_TOUCH##
+	server 127.0.0.1:8001;
+	server 127.0.0.1:8002;
+}
+
+server {
+	listen 8000;
+	server_name plugnhost;
+	location / {
+		proxy_pass http://plugnhost;
+	}
+}
