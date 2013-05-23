@@ -55,5 +55,5 @@ if __name__ == '__main__':
     f = WorkerNodeFactory()
     host = "localhost"
     reactor.connectTCP(host, COMMUNICATION_PORT, f)
-    print "Connection to master on port %s:%S " % (host, COMMUNICATION_PORT)
+    print "Connection to master on port %s:%s " % (host, COMMUNICATION_PORT)
     reactor.run()
