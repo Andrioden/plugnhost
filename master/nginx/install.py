@@ -1,3 +1,7 @@
+# ADD PROJECT FOLDET TO PATH
+import os, sys
+sys.path.insert(0,os.sep.join(os.path.abspath(__file__).split(os.sep)[:-3]))
+
 # Step 0: Do INSTALL STEPS
 """
 sudo apt-get update
