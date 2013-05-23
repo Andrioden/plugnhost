@@ -6,7 +6,7 @@ sys.path.insert(0,os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2]))
 from twisted.internet import reactor, protocol
 import json
 from settings import COMMUNICATION_PORT
-from tools import nginx_reqwrite_site_config,
+from tools import nginx_reqwrite_site_config
 
 """ A Twisted application server, will listen on a given PORT for worker nodes 
 communication
