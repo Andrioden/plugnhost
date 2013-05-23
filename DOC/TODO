@@ -1,1 +1,2 @@
 - Make sure installing master multiples times after eachother wont add multiple rows of includes.
+- service nginx restart after install?? or somewhere approporate after plugnhost site config file has been copied.

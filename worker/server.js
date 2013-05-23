@@ -23,7 +23,8 @@ server.listen(PORT);
 // Manual urls
 app.get('/', function (req, res) {
 	console.log("Request at port "+PORT);
-	res.sendfile(__dirname + '/public/index.html');
+	res.send("Hello, welcome to port "+PORT);
+	//res.sendfile(__dirname + '/public/index.html');
 });
 
 // Setting static folders, all files (recursively) in these will be public

@@ -23,7 +23,7 @@ def nginx_reqwrite_site_config(workers):
                         continue
                     else:
                         for worker in workers:
-                            print "\tserver %s:%s" % (worker.IP, worker.PORT)
+                            print "\tserver %s:%s;" % (worker.IP, worker.PORT)
                         below_tag = False
             print line,
         except Exception as err:
