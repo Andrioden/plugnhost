@@ -8,16 +8,6 @@ events {
 }
 
 http {
-	#Next line allows a upstream site to be added on top of http scope
-	include /etc/nginx/sites-pre-enabled/*;
-	#Next line allows a upstream site to be added on top of http scope
-	include /etc/nginx/sites-pre-enabled/*;
-	#Next line allows a upstream site to be added on top of http scope
-	include /etc/nginx/sites-pre-enabled/*;
-	#Next line allows a upstream site to be added on top of http scope
-	include /etc/nginx/sites-pre-enabled/*;
-	#Next line allows a upstream site to be added on top of http scope
-	include /etc/nginx/sites-pre-enabled/*;
         ##
         # Basic Settings
         ##

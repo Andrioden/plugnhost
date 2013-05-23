@@ -7,15 +7,15 @@ sudo apt-get update
 sudo apt-get install nodejs
 
 npm install express
+pip install zope.interface
+pip install twisted
 """
 
 # Step 1: Create a sites-pre-enabled directory at /etc/nginx/
 print "Creating special pre enabled directory...",
 import os
-
-nginx_dir = "/etc/nginx/"
-pre_enabled_dir = nginx_dir+"sites-pre-enabled"
-#directory = "C:\\temp\\lol"
+from settings import NGINX_DIR
+pre_enabled_dir = NGINX_DIR+"sites-pre-enabled"
 if not os.path.exists(pre_enabled_dir):
     os.makedirs(pre_enabled_dir)
 print "SUCCESS"
@@ -34,7 +34,7 @@ print "Editing nginx.conf file...",
 import fileinput
 
 found = False
-for line in fileinput.input(nginx_dir+"nginx.conf", inplace=1):
+for line in fileinput.input(NGINX_DIR+"nginx.conf", inplace=1):
     if line.startswith('http {'):
         found = True # Next line will have a preprinted string
     else:

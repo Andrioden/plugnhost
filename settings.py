@@ -1,0 +1,2 @@
+COMMUNICATION_PORT = 7999
+NGINX_DIR = "/etc/nginx/"

@@ -1,8 +1,8 @@
 upstream plugnhost {
-	# Worker nodes
-	##TAG_WORKERNODES## Do not touch this comment
-	server 127.0.0.1:8001;
-	server 127.0.0.1:8002;
+	# WORKER NODES START # Do not change this comment
+	server 127.0.0.1:49399
+	server 127.0.0.1:49422
+	server 127.0.0.1:49434
 }
 
 server {

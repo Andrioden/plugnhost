@@ -28,3 +28,8 @@ app.get('/', function (req, res) {
 
 // Setting static folders, all files (recursively) in these will be public
 app.use(express.static(__dirname + '/public'));
+
+
+/** SECTION X: Finaly **/
+/*************************************************************/
+console.log("READY"); // Signals the python starter process that it is ready to accept connections
