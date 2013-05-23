@@ -40,7 +40,7 @@ def nginx_reqwrite_site_config(workers):
     os.remove(site_file_backup)
     
     # Reload nginx config
-    call(["nginx", "service", "reload"])
+    call(["service", "nginx", "reload"])
     
 def get_open_port():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
