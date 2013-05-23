@@ -53,6 +53,7 @@ class WorkerNodeFactory(protocol.ClientFactory):
 
 if __name__ == '__main__':
     f = WorkerNodeFactory()
-    reactor.connectTCP("localhost", COMMUNICATION_PORT, f)
-    print "Connection to port %s " % COMMUNICATION_PORT
+    host = "localhost"
+    reactor.connectTCP(host, COMMUNICATION_PORT, f)
+    print "Connection to master on port %s:%S " % (host, COMMUNICATION_PORT)
     reactor.run()

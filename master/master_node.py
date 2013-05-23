@@ -66,5 +66,5 @@ if __name__ == '__main__':
     factory = protocol.ServerFactory()
     factory.protocol = MasterNode
     reactor.listenTCP(COMMUNICATION_PORT, factory)
-    print "Listening to port %s " % COMMUNICATION_PORT
+    print "Waiting for worker connections on port %s " % COMMUNICATION_PORT
     reactor.run()

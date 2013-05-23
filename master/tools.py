@@ -1,9 +1,10 @@
 import fileinput, shutil, os, socket
 from subprocess import call
+from settings import NGINX_DIR
 
 def nginx_reqwrite_site_config(workers):
     print "Rewriting site file... ",
-    site_file = "./nginx/plugnhost"
+    site_file = NGINX_DIR+"sites-pre-enabled/plugnhost"
     site_file_backup = site_file+"~"
     # Take backup of file
     shutil.copy2(site_file, site_file_backup)
