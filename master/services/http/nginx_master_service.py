@@ -13,8 +13,6 @@ class NginxMasterService(object):
         changes
         """
         print "Rewriting site file... ",
-        print "FAKE SUCCESS"
-        return
         site_file = NGINX_DIR+"sites-pre-enabled/plugnhost"
         site_file_backup = site_file+"~"
         # Take backup of file
