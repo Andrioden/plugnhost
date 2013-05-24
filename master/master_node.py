@@ -49,11 +49,12 @@ class MasterNode(protocol.Protocol):
         for worker in self.workers:
             if worker.IP == host:
                 print "-- Worker(-) %s" % worker
+                # Remove worker
+                self.workers.remove(worker)
                 # Notify service handlers about worker amount change
                 for service in worker.services:
                     self.on_worker_change(service.name)
-                # Remove worker
-                self.workers.remove(worker)
+
                 
     def on_worker_change(self, service_name):
         current_worker_services = self._get_worker_services(service_name)
@@ -100,11 +101,9 @@ class MasterNode(protocol.Protocol):
                     return False
         
 class Worker(object):
-    IP = None
-    services = []
-    
     def __init__(self, IP):
         self.IP = IP
+        self.services = []
         
     def get_services_with_name(self, service_name):
         return_services = []
@@ -117,10 +116,6 @@ class Worker(object):
         return "Worker - %s - %s" % (self.IP, self.services)
     
 class WorkerService(object):
-    name = None # String
-    IP = None
-    PORT = None
-    
     def __init__(self, name, IP, PORT):
         self.IP = IP
         self.PORT = PORT

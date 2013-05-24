@@ -1,8 +1,5 @@
 class BaseWorkerService(object):
     
-    master_transport = None
-    ready_message = None
-    
     def set_master_transport(self, master_transport):
         self.master_transport = master_transport
     def set_ready_message(self, ready_message):

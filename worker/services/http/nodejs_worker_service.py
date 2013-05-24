@@ -6,9 +6,6 @@ import os
 
 class NodejsWorkerService(BaseWorkerService):
     
-    PORT = None
-    process = None
-    
     def __init__(self, transport):
         self.PORT = get_open_port()
         # Prepare the class so the notify_ready method can be called
