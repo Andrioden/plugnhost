@@ -1,4 +1,4 @@
-class WorkerService(object):
+class BaseWorkerService(object):
     
     master_transport = None
     ready_message = None

@@ -1,20 +1,25 @@
 from subprocess import Popen, PIPE
-import time
-from worker_service import WorkerService
+from worker.services.base_worker_service import BaseWorkerService
+from master.tools import get_open_port
+import json
 
-class HttpWorkerService(WorkerService):
+class NodejsWorkerService(BaseWorkerService):
     
     PORT = None
     process = None
     
-    def __init__(self, port):
-        self.PORT = port
+    def __init__(self, transport):
+        self.PORT = get_open_port()
+        # Prepare the class so the notify_ready method can be called
+        self.set_master_transport(transport)
+        self.set_ready_message(json.dumps({'type': 'service-ready', 'service': 'http', 'port': self.PORT}))
     
     def start(self):
         print "Starting HTTP Worker Service... "
-        self.process = Popen(["node", "server.js", str(self.PORT)], stdout=PIPE)
+        self.process = Popen(["node", "./services/http/server.js", str(self.PORT)], stdout=PIPE)
         success = False
-        # First wait for ready signal
+        
+        # Read pipe for ready signal
         for line in iter(self.process.stdout.readline,''):
             print "[node-server]: %s" % line.rstrip()
             if line.rstrip() == "READY": 
@@ -31,8 +36,13 @@ class HttpWorkerService(WorkerService):
         self.process.kill()
         print "Stopped HTTP Worker Service"
         
+        
+    def install(self):
+        pass
+        #TODO: MAKE INSTALL CODE
+        
 if __name__ == "__main__":
-    worker = HttpWorkerService()
+    worker = NodejsWorkerService()
     worker.start()
     #time.sleep(5)
     #worker.stop()

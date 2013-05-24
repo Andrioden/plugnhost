@@ -5,9 +5,7 @@ sys.path.insert(0,os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2]))
 # NORMAL IMPORTS
 from twisted.internet import reactor, protocol
 import json
-from settings import COMMUNICATION_PORT
-from http_worker_service import HttpWorkerService
-from master.tools import get_open_port
+import settings
 
 class WorkerNode(protocol.Protocol):
     
@@ -15,14 +13,12 @@ class WorkerNode(protocol.Protocol):
     
     def start(self):
         """ Start all services """
-        http_port = get_open_port()
-        http_service = HttpWorkerService(http_port)
-        # Prepare the class so the notify_ready method can be called
-        http_service.set_master_transport(self.transport)
-        http_service.set_ready_message(json.dumps({'type': 'service-ready', 'service': 'http', 'port': http_port}))
-        # Attempt to start the service
-        http_service.start() 
-        self.services.append(http_service)
+        for service_name in settings.SERVICES:
+            path_class = settings.SERVICES[service_name]['WorkerClass'].rsplit(".", 1)
+            exec ("from %s import %s" % (path_class[0], path_class[1]))
+            service = eval(path_class[1]+"(self.transport)")
+            service.start()
+            self.services.append(service)
     
     def stop(self):
         for service in self.services:
@@ -53,7 +49,8 @@ class WorkerNodeFactory(protocol.ClientFactory):
 
 if __name__ == '__main__':
     f = WorkerNodeFactory()
+    #host = "andresh.nerdvana.tihlde.org"
     host = "localhost"
-    reactor.connectTCP(host, COMMUNICATION_PORT, f)
-    print "Connection to master on port %s:%s " % (host, COMMUNICATION_PORT)
+    reactor.connectTCP(host, settings.COMMUNICATION_PORT, f)
+    print "Connection to master on port %s:%s " % (host, settings.COMMUNICATION_PORT)
     reactor.run()
