@@ -2,6 +2,7 @@ from subprocess import Popen, PIPE
 from worker.services.base_worker_service import BaseWorkerService
 from master.tools import get_open_port
 import json
+import os
 
 class NodejsWorkerService(BaseWorkerService):
     
@@ -16,7 +17,8 @@ class NodejsWorkerService(BaseWorkerService):
     
     def start(self):
         print "Starting HTTP Worker Service... "
-        self.process = Popen(["node", "./services/http/server.js", str(self.PORT)], stdout=PIPE)
+        server_path = os.path.join(os.path.dirname(__file__), 'server.js')
+        self.process = Popen(["node", server_path, str(self.PORT)], stdout=PIPE)
         success = False
         
         # Read pipe for ready signal
