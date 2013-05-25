@@ -1,3 +1,5 @@
 - Make sure installing master multiples times after eachother wont add multiple rows of includes.
 - service nginx restart after install?? or somewhere approporate after plugnhost site config file has been copied.
 - Make a special linux cmd that can be run to reload service settings and reset service handlers.
+- Investigate DC issues, what happens when one node dc? or the master dc?
+- Can chose what services to serve or master

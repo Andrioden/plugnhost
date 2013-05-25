@@ -2,11 +2,10 @@ import fileinput, shutil, os
 from subprocess import call
 
 NGINX_DIR = "/etc/nginx/"
+#NGINX_DIR = "C:/projects/eclipse/plugnhost/master/services/http/"
+NGINX_CONFIG_FILE = NGINX_DIR+"nginx.conf.example"
 
 class NginxMasterService(object):
-    
-    def __init__(self):
-        pass
     
     def on_worker_change(self, workers):
         """ Will be run every time the amount of workers for this service
@@ -71,7 +70,7 @@ class NginxMasterService(object):
         
         npm install express
         pip install zope.interface
-        pip install twisted
+        apk-installas adkasdkasdk ikke pip
         """
         
         # Step 1: Create a sites-pre-enabled directory at /etc/nginx/
@@ -86,24 +85,30 @@ class NginxMasterService(object):
         print "Copying site definition file...",
         import shutil
         
-        config_file = os.path.join(os.path.dirname(__file__), 'plugnhost')
-        shutil.copy2(config_file, pre_enabled_dir)
-        print "SUUCESS"
+        site_file = os.path.join(os.path.dirname(__file__), 'plugnhost')
+        shutil.copy2(site_file, pre_enabled_dir)
+        print "SUCCESS"
         
         # Step 3: Edit the nginx.conf file to include pre-enabled sites at the top of
         #         the http scope
         print "Editing nginx.conf file...",
-        import fileinput
         
-        found = False
-        for line in fileinput.input(NGINX_DIR+"nginx.conf", inplace=1):
-            if line.startswith('http {'):
-                found = True # Next line will have a preprinted string
-            else:
-                if found:
-                    print "\t#Next line allows a upstream site to be added on top of http scope"
-                    print "\tinclude /etc/nginx/sites-pre-enabled/*;"
-                    print "\n"
-                found = False
-            print line,
-        print "SUCCESS"
+        include_string = "include /etc/nginx/sites-pre-enabled/*;"
+        if include_string in open(NGINX_CONFIG_FILE).read():
+            print "SKIPPED (already done)"
+        else:
+            found = False
+            for line in fileinput.input(NGINX_CONFIG_FILE, inplace=1):
+                if line.startswith('http {'):
+                    found = True # Next line will have a preprinted string
+                else:
+                    if found:
+                        print "\t#Next line allows a upstream site to be added, has to be on top of http"
+                        print "\t"+include_string
+                        print "\n"
+                    found = False
+                print line,
+            print "SUCCESS"
+            
+if __name__ == '__main__':
+    NginxMasterService().install()

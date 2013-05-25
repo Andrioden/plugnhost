@@ -1,7 +1,8 @@
 #################
 ## Project
 #################
-worker/services/http/node_modules/
+node_modules/
+.plugged
 
 #################
 ## Eclipse

@@ -1,16 +1,9 @@
 from subprocess import Popen, PIPE
 from worker.services.base_worker_service import BaseWorkerService
-from master.tools import get_open_port
 import json
 import os
 
 class NodejsWorkerService(BaseWorkerService):
-    
-    def __init__(self, transport):
-        self.PORT = get_open_port()
-        # Prepare the class so the notify_ready method can be called
-        self.set_master_transport(transport)
-        self.set_ready_message(json.dumps({'type': 'service-ready', 'service': 'http', 'port': self.PORT}))
     
     def start(self):
         print "Starting HTTP Worker Service... "
@@ -27,18 +20,22 @@ class NodejsWorkerService(BaseWorkerService):
         # Notify
         if success:
             self.notify_ready()
-            print "SUCCESS"
+            print "...HTTP Worker Service ONLINE"
         else:
-            print "ERROR"
+            print "...Failed to start HTTP Worker Service"
         
     def stop(self):
         self.process.kill()
         print "Stopped HTTP Worker Service"
         
-        
     def install(self):
-        pass
-        #TODO: MAKE INSTALL CODE
+        if os.name == "nt": # Running on Windows
+            from install_windows import install_windows
+            install_windows()
+        elif os.name == "posix":
+            pass
+        else:
+            print "OS Not supported"
         
 if __name__ == "__main__":
     worker = NodejsWorkerService()

@@ -16,7 +16,9 @@ class WorkerNode(protocol.Protocol):
         for service_name in settings.SERVICES:
             path_class = settings.SERVICES[service_name]['WorkerClass'].rsplit(".", 1)
             exec ("from %s import %s" % (path_class[0], path_class[1]))
-            service = eval(path_class[1]+"(self.transport)")
+            service = eval(path_class[1]+"()")
+            service.set_master_transport(self.transport)
+            service.set_service_name(service_name)
             service.start()
             self.services.append(service)
     
@@ -48,9 +50,12 @@ class WorkerNodeFactory(protocol.ClientFactory):
         reactor.stop()
 
 if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        host = sys.argv[1]
+    else:
+        host = "andresh.nerdvana.tihlde.org"
+        #host = "localhost"
     f = WorkerNodeFactory()
-    #host = "andresh.nerdvana.tihlde.org"
-    host = "localhost"
     reactor.connectTCP(host, settings.COMMUNICATION_PORT, f)
     print "Connection to master on port %s:%s " % (host, settings.COMMUNICATION_PORT)
     reactor.run()
