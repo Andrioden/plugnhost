@@ -4,7 +4,7 @@ from subprocess import call
 import pickle
 
 here_path = os.path.dirname(__file__)
-INSTALLED_LIST_FILE_PATH = ".plugged"
+INSTALLED_LIST_FILE_PATH = os.path.join(here_path, ".plugged")
 
 def main():
     if 1 < len(sys.argv) < 4:
@@ -20,7 +20,7 @@ def main():
                 print "...Successfully installed master services"
             print "Starting master services..."
             master_file_path = os.path.join(here_path, "master", "master_node.py")
-            call("python %s" % master_file_path)
+            call("python %s" % master_file_path, shell=True)
         elif go_as == "workfor":
             if len(sys.argv) !=3:
                 print_help()
@@ -35,7 +35,7 @@ def main():
                     print "...Successfully installed worker services"
                 print "Starting worker services..."
                 worker_file_path = os.path.join(here_path, "worker", "worker_node.py")
-                call("python %s %s" % (worker_file_path, go_host))
+                call("python %s %s" % (worker_file_path, go_host), shell=True)
         else:
             print_help()
             return
