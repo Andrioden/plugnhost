@@ -3,22 +3,24 @@ import settings
 from subprocess import call
 import pickle
 
+here_path = os.path.dirname(__file__)
 INSTALLED_LIST_FILE_PATH = ".plugged"
 
 def main():
     if 1 < len(sys.argv) < 4:
         installed = _load_or_create_installed()
-        print installed
         go_as = sys.argv[1]
+        install_file_path = os.path.join(here_path, 'install.py')
         if go_as == "master":
             if not _is_all_services_installed_for(installed, "master"):
                 print "Installing master services..."
                 installed['master_services'] = [s for s in settings.SERVICES]
-                call("python install.py master", shell=True)
+                call("python %s master" % install_file_path, shell=True)
                 pickle.dump(installed, open(INSTALLED_LIST_FILE_PATH, "wb"))
                 print "...Successfully installed master services"
             print "Starting master services..."
-            call("python master/master_node.py")
+            master_file_path = os.path.join(here_path, "master" "master_node.py")
+            call("python %s" % master_file_path)
         elif go_as == "workfor":
             if len(sys.argv) !=3:
                 print_help()
@@ -28,11 +30,12 @@ def main():
                 if not _is_all_services_installed_for(installed, "worker"):
                     print "Installing worker services..."
                     installed['worker_services'] = [s for s in settings.SERVICES]
-                    call("python install.py worker", shell=True)
+                    call("python %s worker" % install_file_path, shell=True)
                     pickle.dump(installed, open(INSTALLED_LIST_FILE_PATH, "wb"))
                     print "...Successfully installed worker services"
                 print "Starting worker services..."
-                call("python worker/worker_node.py %s" % go_host)
+                worker_file_path = os.path.join(here_path, "worker", "worker_node.py")
+                call("python %s %s" % (worker_file_path, go_host))
         else:
             print_help()
             return
