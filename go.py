@@ -19,7 +19,7 @@ def main():
                 pickle.dump(installed, open(INSTALLED_LIST_FILE_PATH, "wb"))
                 print "...Successfully installed master services"
             print "Starting master services..."
-            master_file_path = os.path.join(here_path, "master" "master_node.py")
+            master_file_path = os.path.join(here_path, "master", "master_node.py")
             call("python %s" % master_file_path)
         elif go_as == "workfor":
             if len(sys.argv) !=3:
