@@ -3,7 +3,7 @@ from subprocess import call
 
 NGINX_DIR = "/etc/nginx/"
 #NGINX_DIR = "C:/projects/eclipse/plugnhost/master/services/http/"
-NGINX_CONFIG_FILE = NGINX_DIR+"nginx.conf.example"
+NGINX_CONFIG_FILE = NGINX_DIR+"nginx.conf"
 
 class NginxMasterService(object):
     
