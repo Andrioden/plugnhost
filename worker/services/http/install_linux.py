@@ -1,4 +1,3 @@
-from tools import download
 from subprocess import call
 
 def install_linux():

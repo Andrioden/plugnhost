@@ -3,3 +3,5 @@
 - Make a special linux cmd that can be run to reload service settings and reset service handlers.
 - Investigate DC issues, what happens when one node dc? or the master dc?
 - Can chose what services to serve or master
+
+- Popen seem to interfere with Twisted, migrate to using Twisted process starting (which imo seemed to suck).

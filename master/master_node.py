@@ -79,7 +79,7 @@ class MasterNode(protocol.Protocol):
         The service handler class is attempted eval'd from the settings module, 
         if not found the settings module is reloaded, and the method runs 
         itself recursively once more. The settings module is reloaded so new 
-        services can be introduces live.
+        services can be introduced live.
         
         """
         if self.service_handlers.has_key(service_name):
