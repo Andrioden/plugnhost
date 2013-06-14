@@ -1,0 +1,1 @@
+-	Don’t overwrite __init__ in a BaseWorkerService extender, has to call it then.

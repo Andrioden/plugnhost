@@ -1,6 +1,10 @@
 /** SECTION X: Get port input **/
 /*************************************************************/
 var PORT = process.argv[2];
+if (!PORT) {
+	PORT = 80;
+	console.log("No port input, setting it to "+PORT);
+}
 
 /** SECTION 1: Create the node, express and socket.io setup **/
 /*************************************************************/
@@ -22,9 +26,12 @@ server.listen(PORT);
 
 // Manual urls
 app.get('/', function (req, res) {
+	var start = new Date();
 	console.log("Request at port "+PORT);
 	res.send("Hello, welcome to port "+PORT);
 	//res.sendfile(__dirname + '/public/index.html');
+	var end = new Date();
+	console.log(end-start);
 });
 
 // Setting static folders, all files (recursively) in these will be public

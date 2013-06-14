@@ -1,6 +1,5 @@
 from subprocess import Popen, PIPE
 from worker.services.base_worker_service import BaseWorkerService
-import json
 import os
 
 class NodejsWorkerService(BaseWorkerService):
@@ -40,5 +39,3 @@ class NodejsWorkerService(BaseWorkerService):
 if __name__ == "__main__":
     worker = NodejsWorkerService()
     worker.start()
-    #time.sleep(5)
-    #worker.stop()
