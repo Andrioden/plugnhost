@@ -32,7 +32,8 @@ class NodejsWorkerService(BaseWorkerService):
             from install_windows import install_windows
             install_windows()
         elif os.name == "posix":
-            pass
+            from install_linux import install_linux
+            install_linux()
         else:
             print "OS Not supported"
         
