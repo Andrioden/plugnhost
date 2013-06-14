@@ -16,8 +16,8 @@ dependencies = {
             'call': "%s"
         },
         'Twisted': {
-            '32bit': ["https://pypi.python.org/packages/2.7/T/Twisted/","Twisted-13.0.0.win32-py2.7.msi"],
-            '64bit': ["https://pypi.python.org/packages/2.7/T/Twisted/","Twisted-13.0.0.win32-py2.7.msi"],
+            '32bit': ["http://twistedmatrix.com/Releases/Twisted/13.0/","Twisted-13.0.0.win32-py2.7.msi"],
+            '64bit': ["http://twistedmatrix.com/Releases/Twisted/13.0/","Twisted-13.0.0.win-amd64-py2.7.msi"],
             'call': 'msiexec /i %s'
         }
     },
