@@ -57,25 +57,21 @@ class NginxMasterService(object):
         
         """
         # ADD PROJECT FOLDET TO PATH
-        import os, sys
+        import sys
         sys.path.insert(0,os.sep.join(os.path.abspath(__file__).split(os.sep)[:-3]))
         
         # Step 0: Do INSTALL STEPS
-        """
-        sudo apt-get update
-        sudo apt-get install python-software-properties python g++ make
-        sudo add-apt-repository ppa:chris-lea/node.js
-        sudo apt-get update
-        sudo apt-get install nodejs
-        
-        npm install express
-        pip install zope.interface
-        apk-installas adkasdkasdk ikke pip
-        """
+        call("sudo apt-get update", shell=True)
+        call("sudo apt-get install python-software-properties python g++ make", shell=True)
+        call("sudo add-apt-repository ppa:chris-lea/node.js", shell=True)
+        call("sudo apt-get update", shell=True)
+        call("sudo apt-get install nodejs", shell=True)
+        call("sudo apt-get install pip", shell=True)
+        call("pip install zope.interface", shell=True)
+        call("apt-get install python-twisted", shell=True)
         
         # Step 1: Create a sites-pre-enabled directory at /etc/nginx/
         print "Creating special pre enabled directory...",
-        import os
         pre_enabled_dir = NGINX_DIR+"sites-pre-enabled"
         if not os.path.exists(pre_enabled_dir):
             os.makedirs(pre_enabled_dir)
@@ -83,7 +79,6 @@ class NginxMasterService(object):
             
         # Step 2: Copy plugnhost site definition file to pre enabled sites directory
         print "Copying site definition file...",
-        import shutil
         
         site_file = os.path.join(os.path.dirname(__file__), 'plugnhost')
         shutil.copy2(site_file, pre_enabled_dir)
@@ -109,6 +104,10 @@ class NginxMasterService(object):
                     found = False
                 print line,
             print "SUCCESS"
+            
+        # Step 4: Start Nginx
+        print "Starting Nginx..."
+        call("sudo service nginx start")
             
 if __name__ == '__main__':
     NginxMasterService().install()
